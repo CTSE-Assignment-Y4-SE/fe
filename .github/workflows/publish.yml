@@ -1,0 +1,52 @@
+name: Publish Frontend Docker Image to GitHub Packages
+
+on:
+  push:
+    branches:
+      - main
+      - release/*
+
+jobs:
+  publish-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Frontend Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Packages
+        run: echo "${{ secrets.SECRET_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Generate Timestamp Tag
+        run: echo "IMAGE_TAG=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
+
+      - name: Build Frontend Docker Image
+        run: |
+          docker build -t ghcr.io/ctse-assignment-y4-se/frontend:${{ env.IMAGE_TAG }} .
+
+      - name: Push Frontend Docker Image
+        run: |
+          docker push ghcr.io/ctse-assignment-y4-se/frontend:${{ env.IMAGE_TAG }}
+
+      - name: Checkout Infrastructure Repository
+        uses: actions/checkout@v4
+        with:
+          repository: "CTSE-Assignment-Y4-SE/infrastructure"
+          token: ${{ secrets.GH_PAT }}
+          path: infrastructure
+
+      - name: Update Frontend Image Tag in Kubernetes Deployment
+        run: |
+          sed -i "s|ghcr.io/ctse-assignment-y4-se/frontend:.*|ghcr.io/ctse-assignment-y4-se/frontend:${{ env.IMAGE_TAG }}|" infrastructure/k8s/frontend/deployment.yaml
+
+      - name: Commit and Push Changes
+        run: |
+          cd infrastructure
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add ./k8s/frontend/deployment.yaml
+          git commit -m "Feat: update frontend image tag to ${{ env.IMAGE_TAG }}"
+          git push
