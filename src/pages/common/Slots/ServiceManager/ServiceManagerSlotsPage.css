@@ -1,0 +1,13 @@
+.slot-item {
+    font-size: 12px;
+    margin: 2px 0;
+    background: #f0f0f0;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.slot-item button {
+    margin-left: 10px;
+    font-size: 10px;
+}
