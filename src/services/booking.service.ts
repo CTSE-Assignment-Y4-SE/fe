@@ -1,7 +1,7 @@
 import axios, {AxiosResponse} from 'axios';
 import {BookingRequestResponse, BookingRequestStatus} from "../types/request.type.ts";
 
-const BASE_URL = 'http://garage-service:9090/api/v1/garage/booking/request';
+const BASE_URL = 'http://localhost:9090/api/v1/garage/booking/request';
 
 interface BookingRequestParams {
     status?: string;

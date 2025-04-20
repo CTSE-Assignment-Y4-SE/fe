@@ -1,7 +1,7 @@
 import axios, {AxiosError, AxiosResponse} from "axios";
 import {Vehicle, VehicleResponse} from "../types/index.type.ts";
 
-const baseUrl = "http://vehicle-owner-service:9093/api";
+const baseUrl = "http://localhost:9093/api";
 
 export const fetchVehicles = async (): Promise<AxiosResponse<VehicleResponse>> => {
     try {

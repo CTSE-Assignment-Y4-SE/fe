@@ -1,7 +1,7 @@
 import axios, {AxiosResponse} from "axios";
 import {NotificationResponse} from "../types/notification.type.ts";
 
-const BASE_URL = "http://notification-service:9091/api/v1/notification";
+const BASE_URL = "http://localhost:9091/api/v1/notification";
 
 export const getAllNotifications = async (): Promise<NotificationResponse> => {
     try {
