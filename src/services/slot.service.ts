@@ -1,7 +1,7 @@
 import axios, {AxiosResponse} from 'axios';
 import {ServiceSlotResponse} from "../types/slot.type.ts";
 
-const BASE_URL = 'http://localhost:8080/garage/api/v1/garage/service/slot';
+const BASE_URL = 'http://54.145.3.246:8080/garage/api/v1/garage/service/slot';
 
 export const createServiceSlot = async (data: {
     serviceDate: string;

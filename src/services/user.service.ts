@@ -1,7 +1,7 @@
 import axios, {AxiosError, AxiosResponse} from "axios";
 import {UserResponse} from "../types/index.type.ts";
 
-const baseUrl = "http://localhost:8080/user/api/v1/user";
+const baseUrl = "http://54.145.3.246:8080/user/api/v1/user";
 
 export const getUsersByRole = async (roles: string[] | null): Promise<AxiosResponse<UserResponse>> => {
     try {

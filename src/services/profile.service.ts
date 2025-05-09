@@ -1,7 +1,7 @@
 import axios, {AxiosError, AxiosResponse} from "axios";
 import {UserResponse} from "../types/index.type.ts";
 
-const baseUrl = "http://localhost:8080/user/api";
+const baseUrl = "http://54.145.3.246:8080/user/api";
 
 export const getUserProfile = async (): Promise<AxiosResponse<UserResponse>> => {
     try {
